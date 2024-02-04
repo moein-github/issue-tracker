@@ -5,12 +5,12 @@ import classNames from "classnames";
 import { AiFillBug } from "react-icons/ai";
 import { usePathname } from "next/navigation";
 
-import { navbar } from "./content.json";
+import content from "./content.json";
 
 const NavBar = () => {
   const currentPath = usePathname();
 
-  const { links } = navbar;
+  const { links } = content.navbar;
 
   return (
     <nav className="flex space-x-6 border-b mb-5 px-5 h-14 items-center">
