@@ -11,6 +11,7 @@ import "easymde/dist/easymde.min.css";
 
 import { createIssueSchema } from "@/app/validationSchemas";
 import ErrorMessage from "@/app/components/ErrorMessage";
+import Spinner from "@/app/components/Spinner";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
@@ -25,13 +26,17 @@ const NewIssuePage = () => {
     resolver: zodResolver(createIssueSchema),
   });
   const [error, setError] = useState("");
+  const [isSubmiting, setIsSubmiting] = useState(false);
 
   const onSubmit = async (data: IssueForm) => {
     try {
+      setIsSubmiting(true);
       await axios.post("/api/issues", data);
       router.push("/issues");
     } catch (err) {
       setError("An unexpected error occurred.");
+    } finally {
+      setIsSubmiting(false);
     }
   };
 
@@ -58,7 +63,9 @@ const NewIssuePage = () => {
         {errors.description && (
           <ErrorMessage>{errors.description.message}</ErrorMessage>
         )}
-        <Button>Submit New Issue</Button>
+        <Button disabled={isSubmiting}>
+          Submit New Issue {isSubmiting && <Spinner />}
+        </Button>
       </form>
     </div>
   );
