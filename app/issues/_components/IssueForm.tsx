@@ -4,15 +4,11 @@ import axios from "axios";
 import { useState } from "react";
 import { Issue } from "@prisma/client";
 import { useRouter } from "next/navigation";
+import SimpleMDE from "react-simplemde-editor";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Callout, TextField } from "@radix-ui/themes";
 import "easymde/dist/easymde.min.css";
-import dynamic from "next/dynamic";
-
-const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
-  ssr: false,
-});
 
 import Spinner from "@/app/components/Spinner";
 import ErrorMessage from "@/app/components/ErrorMessage";
